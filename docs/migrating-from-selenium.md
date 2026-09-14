@@ -24,10 +24,18 @@ Before:
 ```java
 public class LoginPage {
   private final WebDriver driver;
-  @FindBy(id = "username") private WebElement username;
-  @FindBy(how = How.NAME, using = "password") private WebElement password;
-  @FindBy(css = "button[type=submit]") private WebElement submit;
-  @FindBy(className = "error") private List<WebElement> errors;
+
+  @FindBy(id = "username")
+  private WebElement username;
+
+  @FindBy(how = How.NAME, using = "password")
+  private WebElement password;
+
+  @FindBy(css = "button[type=submit]")
+  private WebElement submit;
+
+  @FindBy(className = "error")
+  private List<WebElement> errors;
 
   public LoginPage(WebDriver driver) {
     this.driver = driver;
@@ -47,10 +55,18 @@ After:
 ```java
 public class LoginPage {
   private final Page page;
-  @FindBy(id = "username") private Locator username;
-  @FindBy(how = How.NAME, using = "password") private Locator password;
-  @FindBy(css = "button[type=submit]") private Locator submit;
-  @FindBy(className = "error") private List<Locator> errors;
+
+  @FindBy(id = "username")
+  private Locator username;
+
+  @FindBy(how = How.NAME, using = "password")
+  private Locator password;
+
+  @FindBy(css = "button[type=submit]")
+  private Locator submit;
+
+  @FindBy(className = "error")
+  private List<Locator> errors;
 
   public LoginPage(Page page) {
     this.page = page;
@@ -106,11 +122,20 @@ Playwright's `assertThat(locator).isVisible()` and friends, which retry until th
 Playwright's user-facing locators are available as annotation attributes:
 
 ```java
-@FindBy(testId = "sign-in")          Locator signIn;
-@FindBy(text = "Sign in")            Locator signInByText;
-@FindBy(label = "Password")          Locator password;
-@FindBy(placeholder = "Search")      Locator search;
-@FindBy(selector = "text=OK >> nth=0") Locator raw;   // any Playwright selector
+@FindBy(testId = "sign-in")
+Locator signIn;
+
+@FindBy(text = "Sign in")
+Locator signInByText;
+
+@FindBy(label = "Password")
+Locator password;
+
+@FindBy(placeholder = "Search")
+Locator search;
+
+@FindBy(selector = "text=OK >> nth=0")
+Locator raw;   // any Playwright selector
 ```
 
 And page objects can be scoped to a component, frame or iframe:

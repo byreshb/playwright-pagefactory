@@ -22,7 +22,8 @@ class AnnotationsTest {
   @Retention(RetentionPolicy.RUNTIME)
   @Target(ElementType.FIELD)
   @PageFactoryFinder(ByRole.Builder.class)
-  @interface ByRole {
+  @interface
+  ByRole {
     String value();
 
     class Builder extends AbstractFindByBuilder {
@@ -35,19 +36,46 @@ class AnnotationsTest {
 
   @SuppressWarnings("unused")
   static class Holder {
-    @FindBy(id = "user") Locator shortForm;
-    @FindBy(how = How.CSS, using = ".btn") Locator longForm;
-    @FindBy(how = How.XPATH) Locator howWithoutUsing;
-    @FindBy(id = "a", css = "b") Locator twoStrategies;
-    @FindBy(placeholder = "Search") Locator playwrightShortForm;
+    @FindBy(id = "user")
+    Locator shortForm;
+
+    @FindBy(how = How.CSS, using = ".btn")
+    Locator longForm;
+
+    @FindBy(how = How.XPATH)
+    Locator howWithoutUsing;
+
+    @FindBy(id = "a", css = "b")
+    Locator twoStrategies;
+
+    @FindBy(placeholder = "Search")
+    Locator playwrightShortForm;
     Locator noAnnotation;
-    @CacheLookup @FindBy(id = "cached") Locator cached;
-    @FindBys({@FindBy(id = "form"), @FindBy(tagName = "input")}) Locator chained;
-    @FindAll({@FindBy(className = "a"), @FindBy(className = "b")}) Locator union;
-    @FindBy(id = "x") @FindBys({@FindBy(id = "y")}) Locator findByAndFindBys;
-    @FindBy(id = "x") @FindAll({@FindBy(id = "y")}) Locator findByAndFindAll;
-    @FindBys({@FindBy(id = "x")}) @FindAll({@FindBy(id = "y")}) Locator findBysAndFindAll;
-    @ByRole("dialog") Locator custom;
+
+    @CacheLookup
+    @FindBy(id = "cached")
+    Locator cached;
+
+    @FindBys({@FindBy(id = "form"), @FindBy(tagName = "input")})
+    Locator chained;
+
+    @FindAll({@FindBy(className = "a"), @FindBy(className = "b")})
+    Locator union;
+
+    @FindBy(id = "x")
+    @FindBys({@FindBy(id = "y")})
+    Locator findByAndFindBys;
+
+    @FindBy(id = "x")
+    @FindAll({@FindBy(id = "y")})
+    Locator findByAndFindAll;
+
+    @FindBys({@FindBy(id = "x")})
+    @FindAll({@FindBy(id = "y")})
+    Locator findBysAndFindAll;
+
+    @ByRole("dialog")
+    Locator custom;
   }
 
   private static Annotations annotationsOf(String fieldName) throws NoSuchFieldException {

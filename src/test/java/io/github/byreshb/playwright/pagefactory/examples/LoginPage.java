@@ -8,16 +8,19 @@ import io.github.byreshb.playwright.pagefactory.How;
 /** The login page, showing every {@code @FindBy} flavour side by side. */
 public class LoginPage extends BasePage {
 
-  @FindBy(id = "username")                       // Selenium short form
+  // Selenium short form
+  @FindBy(id = "username")
   private Locator username;
 
-  @FindBy(how = How.NAME, using = "password")    // Selenium long form
+  // Selenium long form
+  @FindBy(how = How.NAME, using = "password")
   private Locator password;
 
   @FindBy(name = "remember")
   private Locator rememberMe;
 
-  @FindBy(testId = "sign-in")                    // Playwright getByTestId
+  // Playwright getByTestId
+  @FindBy(testId = "sign-in")
   private Locator signIn;
 
   @FindBy(partialLinkText = "Forgot")

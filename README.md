@@ -7,10 +7,17 @@ Selenium, with Playwright's lazy, auto-waiting `Locator` doing the work undernea
 
 ```java
 public class LoginPage {
-  @FindBy(id = "username")                    Locator username;
-  @FindBy(how = How.NAME, using = "password") Locator password;
-  @FindBy(testId = "sign-in")                 Locator signIn;
-  @FindBy(className = "error")                List<Locator> errors;
+  @FindBy(id = "username")
+  Locator username;
+
+  @FindBy(how = How.NAME, using = "password")
+  Locator password;
+
+  @FindBy(testId = "sign-in")
+  Locator signIn;
+
+  @FindBy(className = "error")
+  List<Locator> errors;
 
   public LoginPage(Page page) {
     PageFactory.initElements(page, this);
@@ -180,8 +187,11 @@ Passing a `Locator` is how you build reusable components:
 ```java
 public class NavBar {
   private final Locator root;              // final: PageFactory leaves it alone
-  @FindBy(css = "a.active") Locator activeLink;
-  @FindBy(tagName = "a")    List<Locator> links;
+  @FindBy(css = "a.active")
+  Locator activeLink;
+
+  @FindBy(tagName = "a")
+  List<Locator> links;
 
   public NavBar(Locator root) {
     this.root = root;

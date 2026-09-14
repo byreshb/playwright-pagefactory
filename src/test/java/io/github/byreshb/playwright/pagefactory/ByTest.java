@@ -20,14 +20,45 @@ class ByTest {
       return null;
     }
 
-    @Override public Locator locator(String selector) { return record("locator", selector); }
-    @Override public Locator getByTestId(String v) { return record("getByTestId", v); }
-    @Override public Locator getByText(String v) { return record("getByText", v); }
-    @Override public Locator getByLabel(String v) { return record("getByLabel", v); }
-    @Override public Locator getByPlaceholder(String v) { return record("getByPlaceholder", v); }
-    @Override public Locator getByAltText(String v) { return record("getByAltText", v); }
-    @Override public Locator getByTitle(String v) { return record("getByTitle", v); }
-    @Override public Object unwrap() { return this; }
+    @Override
+    public Locator locator(String selector) {
+      return record("locator", selector);
+    }
+
+    @Override
+    public Locator getByTestId(String v) {
+      return record("getByTestId", v);
+    }
+
+    @Override
+    public Locator getByText(String v) {
+      return record("getByText", v);
+    }
+
+    @Override
+    public Locator getByLabel(String v) {
+      return record("getByLabel", v);
+    }
+
+    @Override
+    public Locator getByPlaceholder(String v) {
+      return record("getByPlaceholder", v);
+    }
+
+    @Override
+    public Locator getByAltText(String v) {
+      return record("getByAltText", v);
+    }
+
+    @Override
+    public Locator getByTitle(String v) {
+      return record("getByTitle", v);
+    }
+
+    @Override
+    public Object unwrap() {
+      return this;
+    }
   }
 
   private static String selectorOf(By by) {

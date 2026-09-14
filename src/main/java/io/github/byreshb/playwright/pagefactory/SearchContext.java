@@ -137,14 +137,45 @@ public interface SearchContext {
       this.byTitle = byTitle;
     }
 
-    @Override public Locator locator(String selector) { return locator.apply(selector); }
-    @Override public Locator getByTestId(String testId) { return byTestId.apply(testId); }
-    @Override public Locator getByText(String text) { return byText.apply(text); }
-    @Override public Locator getByLabel(String text) { return byLabel.apply(text); }
-    @Override public Locator getByPlaceholder(String text) { return byPlaceholder.apply(text); }
-    @Override public Locator getByAltText(String text) { return byAltText.apply(text); }
-    @Override public Locator getByTitle(String text) { return byTitle.apply(text); }
-    @Override public Object unwrap() { return target; }
+    @Override
+    public Locator locator(String selector) {
+      return locator.apply(selector);
+    }
+
+    @Override
+    public Locator getByTestId(String testId) {
+      return byTestId.apply(testId);
+    }
+
+    @Override
+    public Locator getByText(String text) {
+      return byText.apply(text);
+    }
+
+    @Override
+    public Locator getByLabel(String text) {
+      return byLabel.apply(text);
+    }
+
+    @Override
+    public Locator getByPlaceholder(String text) {
+      return byPlaceholder.apply(text);
+    }
+
+    @Override
+    public Locator getByAltText(String text) {
+      return byAltText.apply(text);
+    }
+
+    @Override
+    public Locator getByTitle(String text) {
+      return byTitle.apply(text);
+    }
+
+    @Override
+    public Object unwrap() {
+      return target;
+    }
 
     @Override
     public String toString() {

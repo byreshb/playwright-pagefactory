@@ -109,7 +109,8 @@ builder extend `AbstractFindByBuilder`:
 public @interface ByRole {
   String value();
   class Builder extends AbstractFindByBuilder {
-    @Override public By buildIt(Annotation a, Field f) {
+    @Override
+    public By buildIt(Annotation a, Field f) {
       return By.css("[role=" + ((ByRole) a).value() + "]");
     }
   }

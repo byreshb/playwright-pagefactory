@@ -33,7 +33,8 @@ class PageFactoryTest extends BrowserTestBase {
 
   @SuppressWarnings("unused")
   static class BasePage {
-    @FindBy(tagName = "h1") Locator heading;
+    @FindBy(tagName = "h1")
+    Locator heading;
   }
 
   @SuppressWarnings("unused")
@@ -44,22 +45,50 @@ class PageFactoryTest extends BrowserTestBase {
     List<Locator> unannotatedList;                     // must stay null
     List<String> stringList;                           // must stay null
 
-    @FindBy(id = "username") Locator username;
-    @FindBy(how = How.NAME, using = "user") Locator usernameByName;
-    @FindBy(placeholder = "Your name") Locator usernameByPlaceholder;
-    @FindBy(label = "Password") Locator password;
-    @FindBy(testId = "submit") Locator submit;
-    @FindBy(text = "Log in") Locator submitByText;
-    @FindBy(partialLinkText = "Forgot") Locator forgot;
-    @FindBy(linkText = "Forgot your password?") Locator forgotExact;
-    @FindBy(selector = "css=#items >> nth=0") Locator rawSelector;
+    @FindBy(id = "username")
+    Locator username;
+
+    @FindBy(how = How.NAME, using = "user")
+    Locator usernameByName;
+
+    @FindBy(placeholder = "Your name")
+    Locator usernameByPlaceholder;
+
+    @FindBy(label = "Password")
+    Locator password;
+
+    @FindBy(testId = "submit")
+    Locator submit;
+
+    @FindBy(text = "Log in")
+    Locator submitByText;
+
+    @FindBy(partialLinkText = "Forgot")
+    Locator forgot;
+
+    @FindBy(linkText = "Forgot your password?")
+    Locator forgotExact;
+
+    @FindBy(selector = "css=#items >> nth=0")
+    Locator rawSelector;
     Locator pw;                                        // no annotation -> id or name "pw"
 
-    @FindBy(className = "item") List<Locator> allItems;
-    @FindBys({@FindBy(id = "items"), @FindBy(className = "item")}) List<Locator> listItems;
-    @FindAll({@FindBy(className = "error"), @FindBy(className = "warning")}) List<Locator> alerts;
-    @CacheLookup @FindBy(className = "item") List<Locator> cachedItems;
-    @CacheLookup @FindBy(id = "username") Locator cachedUsername;
+    @FindBy(className = "item")
+    List<Locator> allItems;
+
+    @FindBys({@FindBy(id = "items"), @FindBy(className = "item")})
+    List<Locator> listItems;
+
+    @FindAll({@FindBy(className = "error"), @FindBy(className = "warning")})
+    List<Locator> alerts;
+
+    @CacheLookup
+    @FindBy(className = "item")
+    List<Locator> cachedItems;
+
+    @CacheLookup
+    @FindBy(id = "username")
+    Locator cachedUsername;
   }
 
   private TestPage init() {
@@ -176,24 +205,37 @@ class PageFactoryTest extends BrowserTestBase {
 
   static class PageCtorPage {
     final Page page;
-    @FindBy(id = "username") Locator username;
-    PageCtorPage(Page page) { this.page = page; }
+
+    @FindBy(id = "username")
+    Locator username;
+    PageCtorPage(Page page) {
+      this.page = page;
+    }
   }
 
   static class NoArgPage {
-    @FindBy(id = "username") Locator username;
+    @FindBy(id = "username")
+    Locator username;
   }
 
   static class Component {
     final Locator root;
-    @FindBy(className = "item") List<Locator> items;
-    Component(Locator root) { this.root = root; }
+
+    @FindBy(className = "item")
+    List<Locator> items;
+    Component(Locator root) {
+      this.root = root;
+    }
   }
 
   static class ContextPage {
     final SearchContext ctx;
-    @FindBy(tagName = "button") Locator button;
-    ContextPage(SearchContext ctx) { this.ctx = ctx; }
+
+    @FindBy(tagName = "button")
+    Locator button;
+    ContextPage(SearchContext ctx) {
+      this.ctx = ctx;
+    }
   }
 
   static class Uninstantiable {
@@ -260,7 +302,8 @@ class PageFactoryTest extends BrowserTestBase {
 
   @SuppressWarnings("unused")
   static class BadPage {
-    @FindBy(id = "a", css = "b") Locator conflicting;
+    @FindBy(id = "a", css = "b")
+    Locator conflicting;
   }
 
   @Test

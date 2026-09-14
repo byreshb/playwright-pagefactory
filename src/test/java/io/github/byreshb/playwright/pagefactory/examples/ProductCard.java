@@ -6,9 +6,14 @@ import io.github.byreshb.playwright.pagefactory.PageFactory;
 
 /** One product row. Built from the row's locator, so all fields are scoped to that row. */
 public class ProductCard {
-  @FindBy(className = "name") private Locator name;
-  @FindBy(className = "price") private Locator price;
-  @FindBy(text = "Add to cart") private Locator addToCart;
+  @FindBy(className = "name")
+  private Locator name;
+
+  @FindBy(className = "price")
+  private Locator price;
+
+  @FindBy(text = "Add to cart")
+  private Locator addToCart;
 
   public ProductCard(Locator root) {
     PageFactory.initElements(root, this);

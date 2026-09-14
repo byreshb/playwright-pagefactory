@@ -18,11 +18,15 @@ import java.lang.reflect.Field;
  *
  * <pre><code>
  * // "short" form: one strategy attribute
- * &#64;FindBy(id = "username")      Locator username;
- * &#64;FindBy(css = "button.primary") Locator submit;
+ * &#64;FindBy(id = "username")
+ * Locator username;
+ *
+ * &#64;FindBy(css = "button.primary")
+ * Locator submit;
  *
  * // "long" form: how + using
- * &#64;FindBy(how = How.XPATH, using = "//a[@href='/logout']") Locator logout;
+ * &#64;FindBy(how = How.XPATH, using = "//a[@href='/logout']")
+ * Locator logout;
  * </code></pre>
  *
  * <p>Exactly one strategy may be given per annotation. In addition to the Selenium strategies,
