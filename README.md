@@ -62,7 +62,7 @@ Then add the dependency to your own project's `pom.xml`:
 <dependency>
   <groupId>io.github.byreshb</groupId>
   <artifactId>playwright-pagefactory</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 </dependency>
 <dependency>
   <groupId>com.microsoft.playwright</groupId>
@@ -76,13 +76,16 @@ Gradle users:
 ```groovy
 repositories { mavenLocal(); mavenCentral() }
 dependencies {
-  implementation 'io.github.byreshb:playwright-pagefactory:1.0.0-SNAPSHOT'
+  implementation 'io.github.byreshb:playwright-pagefactory:1.0.0'
   implementation 'com.microsoft.playwright:playwright:1.52.0'
 }
 ```
 
+Prefer a download? Every [GitHub Release](https://github.com/byreshb/playwright-pagefactory/releases)
+has the main, sources and Javadoc jars attached.
+
 No Maven or Gradle in the consuming project? `mvn package -DskipTests` produces
-`target/playwright-pagefactory-1.0.0-SNAPSHOT.jar` (plus `-sources.jar` and `-javadoc.jar`).
+`target/playwright-pagefactory-1.0.0.jar` (plus `-sources.jar` and `-javadoc.jar`).
 Put the main jar on your classpath next to the Playwright jars.
 
 To share the build with teammates without a Maven repository, either commit the jar to their
@@ -262,6 +265,14 @@ own project.
 Every push and pull request runs the GitHub Actions workflow in `.github/workflows/ci.yml`:
 formatting check, full test suite in headless Chromium, and upload of the Surefire reports.
 When a test fails, its Playwright traces and screenshots are attached to the run as an artifact.
+
+### Releasing
+
+1. Move the `Unreleased` notes in `CHANGELOG.md` under a new version heading and set that
+   version in `pom.xml`.
+2. Commit, then tag and push: `git tag v1.2.3 && git push origin v1.2.3`.
+3. The release workflow in `.github/workflows/release.yml` checks the tag matches the pom,
+   builds the jars, and publishes a GitHub Release with the changelog section as its notes.
 
 Formatting is automatic: every build runs [Spotless](https://github.com/diffplug/spotless) with
 google-java-format (Google style, annotations on their own line) over `src/` before compiling, so
