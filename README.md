@@ -1,5 +1,7 @@
 # Playwright PageFactory (Java)
 
+[![CI](https://github.com/byreshb/playwright-pagefactory/actions/workflows/ci.yml/badge.svg)](https://github.com/byreshb/playwright-pagefactory/actions/workflows/ci.yml)
+
 A faithful port of Selenium's [`PageFactory`](https://github.com/SeleniumHQ/selenium/wiki/PageFactory)
 to [Playwright for Java](https://playwright.dev/java/). Annotate `Locator` fields with `@FindBy`,
 call `PageFactory.initElements(page, this)`, and write page objects exactly the way you did with
@@ -253,6 +255,12 @@ or drag the zip onto https://trace.playwright.dev. To watch the browser instead 
 headless, add `-Dplaywright.headless=false`. The lifecycle lives in
 `src/test/java/.../PlaywrightExtension.java`, a small JUnit 5 extension you can copy into your
 own project.
+
+### Continuous integration
+
+Every push and pull request runs the GitHub Actions workflow in `.github/workflows/ci.yml`:
+formatting check, full test suite in headless Chromium, and upload of the Surefire reports.
+When a test fails, its Playwright traces and screenshots are attached to the run as an artifact.
 
 Formatting is automatic: every build runs [Spotless](https://github.com/diffplug/spotless) with
 google-java-format (Google style, annotations on their own line) over `src/` before compiling, so
