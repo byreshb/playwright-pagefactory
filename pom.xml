@@ -6,7 +6,7 @@
 
   <groupId>io.github.byreshb</groupId>
   <artifactId>playwright-pagefactory</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
   <name>Playwright PageFactory</name>
