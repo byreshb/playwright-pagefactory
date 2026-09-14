@@ -15,7 +15,7 @@ public class LoginPage {
   @FindBy(how = How.NAME, using = "password")
   Locator password;
 
-  @FindBy(testId = "sign-in")
+  @FindBy(role = "button", roleName = "Sign in")
   Locator signIn;
 
   @FindBy(className = "error")
@@ -142,8 +142,12 @@ Exactly one strategy per annotation, in either the short or the long form.
 | `placeholder = "x"`      | `How.PLACEHOLDER`                     | `getByPlaceholder("x")`                              |
 | `altText = "x"`          | `How.ALT_TEXT`                        | `getByAltText("x")`                                  |
 | `title = "x"`            | `How.TITLE`                           | `getByTitle("x")`                                    |
+| `role = "button"`        | `How.ROLE`                            | `getByRole(AriaRole.BUTTON)`                         |
+| `role = "button", roleName = "Save"` | (short form only)         | `getByRole(BUTTON, setName("Save"))`                 |
 
-The first nine rows are the Selenium strategies; the rest are Playwright's own.
+The first nine rows are the Selenium strategies; the rest are Playwright's own. `roleName` is the
+accessible name for `role` (it is not called `name` because `name` is the HTML attribute, as in
+Selenium). Role names are case-insensitive and accept dashes: `"menu-item"` is `AriaRole.MENUITEM`.
 
 ### `@FindBys` (chain)
 

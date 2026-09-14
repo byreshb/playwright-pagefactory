@@ -30,8 +30,8 @@ import java.lang.reflect.Field;
  *
  * <p>Exactly one strategy may be given per annotation. In addition to the Selenium strategies,
  * Playwright's {@code getBy*} strategies are available: {@link #selector()}, {@link #testId()},
- * {@link #text()}, {@link #label()}, {@link #placeholder()}, {@link #altText()} and {@link
- * #title()}.
+ * {@link #text()}, {@link #label()}, {@link #placeholder()}, {@link #altText()}, {@link #title()}
+ * and {@link #role()} (optionally with {@link #roleName()}).
  *
  * @see FindBys
  * @see FindAll
@@ -96,6 +96,15 @@ public @interface FindBy {
 
   /** {@link By#title(String)} */
   String title() default "";
+
+  /** {@link By#role(String, String)}: ARIA role such as {@code "button"} or {@code "link"}. */
+  String role() default "";
+
+  /**
+   * Accessible name to combine with {@link #role()}; ignored unless {@code role} is set. Named
+   * {@code roleName} because {@link #name()} is the HTML {@code name} attribute, as in Selenium.
+   */
+  String roleName() default "";
 
   /** Converts a {@link FindBy} into a {@link By}. */
   class FindByBuilder extends AbstractFindByBuilder {

@@ -122,8 +122,11 @@ Playwright's `assertThat(locator).isVisible()` and friends, which retry until th
 Playwright's user-facing locators are available as annotation attributes:
 
 ```java
-@FindBy(testId = "sign-in")
+@FindBy(role = "button", roleName = "Sign in")
 Locator signIn;
+
+@FindBy(testId = "sign-in")
+Locator signInByTestId;
 
 @FindBy(text = "Sign in")
 Locator signInByText;

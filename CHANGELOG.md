@@ -7,6 +7,8 @@ All notable changes to this project are documented here. The format follows
 ## [Unreleased]
 
 ### Added
+- `@FindBy(role = "button", roleName = "Sign in")`, `By.role(...)` and `How.ROLE` for
+  Playwright's `getByRole`, the locator Playwright recommends first.
 - Releasing guide covering GitHub Releases and the planned Maven Central setup.
 
 ## [1.0.0] - 2026-09-13

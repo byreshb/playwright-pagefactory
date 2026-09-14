@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.options.AriaRole;
 import org.junit.jupiter.api.Test;
 
 /** Pure unit tests for {@link By}: no browser, selectors are captured with a fake context. */
@@ -53,6 +54,11 @@ class ByTest {
     @Override
     public Locator getByTitle(String v) {
       return record("getByTitle", v);
+    }
+
+    @Override
+    public Locator getByRole(AriaRole role, String name) {
+      return record("getByRole", role + (name == null ? "" : "," + name));
     }
 
     @Override
@@ -171,6 +177,31 @@ class ByTest {
     assertThat(methodOf(By.title("Help"))).isEqualTo("getByTitle(Help)");
   }
 
+  @Test
+  void roleMapsToAriaRoleWithOptionalName() {
+    assertThat(methodOf(By.role("button"))).isEqualTo("getByRole(BUTTON)");
+    assertThat(methodOf(By.role("Button", "Sign in"))).isEqualTo("getByRole(BUTTON,Sign in)");
+    assertThat(methodOf(By.role("menu-item"))).isEqualTo("getByRole(MENUITEM)");
+    assertThat(methodOf(By.role("menu_item_checkbox"))).isEqualTo("getByRole(MENUITEMCHECKBOX)");
+    assertThat(methodOf(By.role("link", ""))).isEqualTo("getByRole(LINK)");
+  }
+
+  @Test
+  void unknownRoleIsRejectedWithTheValidRolesListed() {
+    assertThatThrownBy(() -> By.role("clickable"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("clickable")
+        .hasMessageContaining("BUTTON");
+  }
+
+  @Test
+  void roleToStringAndEquality() {
+    assertThat(By.role("button", "Save")).hasToString("By.role: button \"Save\"");
+    assertThat(By.role("button")).hasToString("By.role: button");
+    assertThat(By.role("button", "Save")).isEqualTo(By.role("button", "Save"));
+    assertThat(By.role("button", "Save")).isNotEqualTo(By.role("button"));
+  }
+
   // ---- How -----------------------------------------------------------------------------------
 
   @Test
@@ -191,6 +222,7 @@ class ByTest {
     assertThat(How.PLACEHOLDER.buildBy("a")).isEqualTo(By.placeholder("a"));
     assertThat(How.ALT_TEXT.buildBy("a")).isEqualTo(By.altText("a"));
     assertThat(How.TITLE.buildBy("a")).isEqualTo(By.title("a"));
+    assertThat(How.ROLE.buildBy("link")).isEqualTo(By.role("link"));
   }
 
   @Test

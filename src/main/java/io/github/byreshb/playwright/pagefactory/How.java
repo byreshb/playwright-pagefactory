@@ -113,6 +113,13 @@ public enum How {
       return By.altText(value);
     }
   },
+  /** {@link By#role(String)}; use the short form {@code @FindBy(role, roleName)} to add a name. */
+  ROLE {
+    @Override
+    public By buildBy(String value) {
+      return By.role(value);
+    }
+  },
   /** {@link By#title(String)} */
   TITLE {
     @Override

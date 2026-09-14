@@ -2,6 +2,8 @@ package io.github.byreshb.playwright.pagefactory;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -159,6 +161,26 @@ public abstract class By {
     return new ContextBy("By.title", title, ctx -> ctx.getByTitle(title));
   }
 
+  /**
+   * Playwright's {@code getByRole(role)}: locate by ARIA role, e.g. {@code "button"}, {@code
+   * "link"}, {@code "textbox"}. Role names are case-insensitive and may use dashes or underscores
+   * ({@code "menu-item"} == {@code AriaRole.MENUITEM}).
+   */
+  public static By role(String role) {
+    return role(role, null);
+  }
+
+  /**
+   * Playwright's {@code getByRole(role, options.setName(name))}: locate by ARIA role and accessible
+   * name, the locator Playwright recommends first. {@code name} may be null.
+   */
+  public static By role(String role, String name) {
+    AriaRole ariaRole = toAriaRole(role);
+    String accessibleName = (name == null || name.isEmpty()) ? null : name;
+    String description = accessibleName == null ? role : role + " \"" + accessibleName + "\"";
+    return new ContextBy("By.role", description, ctx -> ctx.getByRole(ariaRole, accessibleName));
+  }
+
   // ---------------------------------------------------------------------------------------------
   // Combinators
   // ---------------------------------------------------------------------------------------------
@@ -263,6 +285,22 @@ public abstract class By {
     Objects.requireNonNull(value, what + " must not be null");
     if (value.isEmpty()) {
       throw new IllegalArgumentException(what + " must not be empty");
+    }
+  }
+
+  /** Maps a role name such as {@code "button"} or {@code "menu-item"} to {@link AriaRole}. */
+  static AriaRole toAriaRole(String role) {
+    requireNonEmpty(role, "role");
+    String constant = role.trim().toUpperCase(Locale.ROOT).replace("-", "").replace("_", "");
+    try {
+      return AriaRole.valueOf(constant);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(
+          "Unknown ARIA role '"
+              + role
+              + "'; expected one of "
+              + java.util.Arrays.toString(AriaRole.values()),
+          e);
     }
   }
 

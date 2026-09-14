@@ -74,6 +74,12 @@ class PageFactoryTest extends BrowserTestBase {
     @FindBy(selector = "css=#items >> nth=0")
     Locator rawSelector;
 
+    @FindBy(role = "button", roleName = "Log in")
+    Locator submitByRole;
+
+    @FindBy(role = "heading")
+    Locator headingByRole;
+
     Locator pw; // no annotation -> id or name "pw"
 
     @FindBy(className = "item")
@@ -115,6 +121,8 @@ class PageFactoryTest extends BrowserTestBase {
     assertThat(p.forgot.getAttribute("href")).isEqualTo("#x");
     assertThat(p.forgotExact.getAttribute("href")).isEqualTo("#x");
     assertThat(p.rawSelector.getAttribute("id")).isEqualTo("items");
+    assertThat(p.submitByRole.getAttribute("data-testid")).isEqualTo("submit");
+    assertThat(p.headingByRole.textContent()).isEqualTo("Title");
   }
 
   @Test
@@ -265,6 +273,19 @@ class PageFactoryTest extends BrowserTestBase {
     page.setContent(HTML);
     NoArgPage p = PageFactory.initElements(page, NoArgPage.class);
     assertThat(p.username.getAttribute("name")).isEqualTo("user");
+  }
+
+  @Test
+  void roleLookupWorksInsideAFrameLocatorAndALocatorScope() {
+    page.setContent(HTML);
+    assertThat(
+            By.role("button", "Inside")
+                .locate(SearchContext.of(page.frameLocator("#frame")))
+                .count())
+        .isEqualTo(1);
+    assertThat(By.role("button").locate(page.locator("#form")).count()).isEqualTo(1);
+    assertThat(By.role("button").locate(SearchContext.of(page.frames().get(1))).count())
+        .isEqualTo(1);
   }
 
   @Test

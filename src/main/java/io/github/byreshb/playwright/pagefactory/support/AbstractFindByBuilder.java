@@ -48,6 +48,11 @@ public abstract class AbstractFindByBuilder {
     if (!findBy.placeholder().isEmpty()) finders.add("placeholder");
     if (!findBy.altText().isEmpty()) finders.add("altText");
     if (!findBy.title().isEmpty()) finders.add("title");
+    if (!findBy.role().isEmpty()) finders.add("role");
+
+    if (!findBy.roleName().isEmpty() && findBy.role().isEmpty()) {
+      throw new IllegalArgumentException("If you set 'roleName', you must also set 'role'");
+    }
 
     if (finders.size() > 1) {
       throw new IllegalArgumentException(
@@ -76,6 +81,7 @@ public abstract class AbstractFindByBuilder {
     if (!findBy.placeholder().isEmpty()) return By.placeholder(findBy.placeholder());
     if (!findBy.altText().isEmpty()) return By.altText(findBy.altText());
     if (!findBy.title().isEmpty()) return By.title(findBy.title());
+    if (!findBy.role().isEmpty()) return By.role(findBy.role(), findBy.roleName());
     return null;
   }
 

@@ -75,6 +75,12 @@ class AnnotationsTest {
 
     @ByRole("dialog")
     Locator custom;
+
+    @FindBy(role = "button", roleName = "Save")
+    Locator roleWithName;
+
+    @FindBy(roleName = "Save")
+    Locator roleNameWithoutRole;
   }
 
   private static Annotations annotationsOf(String fieldName) throws NoSuchFieldException {
@@ -94,6 +100,18 @@ class AnnotationsTest {
   @Test
   void playwrightShortForm() throws Exception {
     assertThat(annotationsOf("playwrightShortForm").buildBy()).isEqualTo(By.placeholder("Search"));
+  }
+
+  @Test
+  void roleShortFormWithAccessibleName() throws Exception {
+    assertThat(annotationsOf("roleWithName").buildBy()).isEqualTo(By.role("button", "Save"));
+  }
+
+  @Test
+  void roleNameRequiresRole() throws Exception {
+    assertThatThrownBy(() -> annotationsOf("roleNameWithoutRole").buildBy())
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("'role'");
   }
 
   @Test

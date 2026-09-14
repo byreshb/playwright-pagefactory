@@ -19,8 +19,8 @@ public class LoginPage extends BasePage {
   @FindBy(name = "remember")
   private Locator rememberMe;
 
-  // Playwright getByTestId
-  @FindBy(testId = "sign-in")
+  // Playwright getByRole with accessible name, the locator Playwright recommends first
+  @FindBy(role = "button", roleName = "Sign in")
   private Locator signIn;
 
   @FindBy(partialLinkText = "Forgot")

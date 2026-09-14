@@ -4,7 +4,9 @@ import com.microsoft.playwright.Frame;
 import com.microsoft.playwright.FrameLocator;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -42,6 +44,12 @@ public interface SearchContext {
   Locator getByTitle(String text);
 
   /**
+   * Equivalent of {@code page.getByRole(role)}, or {@code page.getByRole(role,
+   * options.setName(name))} when {@code name} is non-null, on the wrapped object.
+   */
+  Locator getByRole(AriaRole role, String name);
+
+  /**
    * The underlying Playwright object this context delegates to: a {@link Page}, {@link Frame},
    * {@link Locator} or {@link FrameLocator}.
    */
@@ -58,7 +66,11 @@ public interface SearchContext {
         page::getByLabel,
         page::getByPlaceholder,
         page::getByAltText,
-        page::getByTitle);
+        page::getByTitle,
+        (role, name) ->
+            name == null
+                ? page.getByRole(role)
+                : page.getByRole(role, new Page.GetByRoleOptions().setName(name)));
   }
 
   /** Wraps a {@link Frame}. */
@@ -72,7 +84,11 @@ public interface SearchContext {
         frame::getByLabel,
         frame::getByPlaceholder,
         frame::getByAltText,
-        frame::getByTitle);
+        frame::getByTitle,
+        (role, name) ->
+            name == null
+                ? frame.getByRole(role)
+                : frame.getByRole(role, new Frame.GetByRoleOptions().setName(name)));
   }
 
   /** Wraps a {@link Locator}. Selectors resolve relative to the element(s) it matches. */
@@ -86,7 +102,11 @@ public interface SearchContext {
         locator::getByLabel,
         locator::getByPlaceholder,
         locator::getByAltText,
-        locator::getByTitle);
+        locator::getByTitle,
+        (role, name) ->
+            name == null
+                ? locator.getByRole(role)
+                : locator.getByRole(role, new Locator.GetByRoleOptions().setName(name)));
   }
 
   /** Wraps a {@link FrameLocator}. Selectors resolve inside the targeted iframe. */
@@ -100,7 +120,11 @@ public interface SearchContext {
         frameLocator::getByLabel,
         frameLocator::getByPlaceholder,
         frameLocator::getByAltText,
-        frameLocator::getByTitle);
+        frameLocator::getByTitle,
+        (role, name) ->
+            name == null
+                ? frameLocator.getByRole(role)
+                : frameLocator.getByRole(role, new FrameLocator.GetByRoleOptions().setName(name)));
   }
 
   /**
@@ -143,6 +167,7 @@ public interface SearchContext {
     private final Function<String, Locator> byPlaceholder;
     private final Function<String, Locator> byAltText;
     private final Function<String, Locator> byTitle;
+    private final BiFunction<AriaRole, String, Locator> byRole;
 
     private Adapter(
         Object target,
@@ -152,7 +177,8 @@ public interface SearchContext {
         Function<String, Locator> byLabel,
         Function<String, Locator> byPlaceholder,
         Function<String, Locator> byAltText,
-        Function<String, Locator> byTitle) {
+        Function<String, Locator> byTitle,
+        BiFunction<AriaRole, String, Locator> byRole) {
       this.target = target;
       this.locator = locator;
       this.byTestId = byTestId;
@@ -161,6 +187,7 @@ public interface SearchContext {
       this.byPlaceholder = byPlaceholder;
       this.byAltText = byAltText;
       this.byTitle = byTitle;
+      this.byRole = byRole;
     }
 
     @Override
@@ -196,6 +223,11 @@ public interface SearchContext {
     @Override
     public Locator getByTitle(String text) {
       return byTitle.apply(text);
+    }
+
+    @Override
+    public Locator getByRole(AriaRole role, String name) {
+      return byRole.apply(role, name);
     }
 
     @Override
