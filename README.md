@@ -47,7 +47,8 @@ name, superclass fields, and the `ElementLocatorFactory` / `FieldDecorator` /
 
 ## Install and use it locally
 
-The library is not on Maven Central. Build it once on your machine and install it into your local
+The library is not on Maven Central yet (planned, see [docs/releasing.md](docs/releasing.md)).
+Build it once on your machine and install it into your local
 Maven repository (`~/.m2`), after which any project on that machine can depend on it.
 
 ```bash
@@ -273,6 +274,9 @@ When a test fails, its Playwright traces and screenshots are attached to the run
 2. Commit, then tag and push: `git tag v1.2.3 && git push origin v1.2.3`.
 3. The release workflow in `.github/workflows/release.yml` checks the tag matches the pom,
    builds the jars, and publishes a GitHub Release with the changelog section as its notes.
+
+Full steps, including the planned but not yet configured Maven Central publishing, are in
+[docs/releasing.md](docs/releasing.md).
 
 Formatting is automatic: every build runs [Spotless](https://github.com/diffplug/spotless) with
 google-java-format (Google style, annotations on their own line) over `src/` before compiling, so
