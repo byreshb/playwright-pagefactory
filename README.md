@@ -238,6 +238,7 @@ mvn test                # unit tests + browser tests (first run downloads Chromi
 mvn javadoc:javadoc     # API docs in target/site/apidocs
 mvn install             # build, test, install into ~/.m2
 mvn spotless:check      # verify formatting without changing anything (for CI)
+mvn verify              # tests + coverage report in target/site/jacoco (fails under 85% lines)
 ```
 
 ### Debugging a failing browser test
