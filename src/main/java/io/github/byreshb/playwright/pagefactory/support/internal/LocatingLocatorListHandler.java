@@ -2,16 +2,15 @@ package io.github.byreshb.playwright.pagefactory.support.internal;
 
 import com.microsoft.playwright.Locator;
 import io.github.byreshb.playwright.pagefactory.support.ElementLocator;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Backs the {@code List<Locator>} proxy: every call re-queries via
- * {@link ElementLocator#findLocators()} and forwards to the resulting list. Mirrors Selenium's
- * {@code LocatingElementListHandler}.
+ * Backs the {@code List<Locator>} proxy: every call re-queries via {@link
+ * ElementLocator#findLocators()} and forwards to the resulting list. Mirrors Selenium's {@code
+ * LocatingElementListHandler}.
  */
 public class LocatingLocatorListHandler implements InvocationHandler {
   private final ElementLocator locator;

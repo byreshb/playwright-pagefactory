@@ -1,35 +1,37 @@
 package io.github.byreshb.playwright.pagefactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.microsoft.playwright.FrameLocator;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import io.github.byreshb.playwright.pagefactory.support.DefaultElementLocatorFactory;
 import io.github.byreshb.playwright.pagefactory.support.DefaultFieldDecorator;
 import io.github.byreshb.playwright.pagefactory.support.ElementLocatorFactory;
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.Test;
 
 /** End-to-end tests of {@link PageFactory} against a real (headless) browser. */
 class PageFactoryTest extends BrowserTestBase {
 
-  private static final String HTML = String.join("\n",
-      "<h1>Title</h1>",
-      "<form id='form'>",
-      "  <input id='username' name='user' placeholder='Your name'>",
-      "  <label for='pw'>Password</label><input id='pw' type='password'>",
-      "  <button type='submit' data-testid='submit'>Log in</button>",
-      "</form>",
-      "<ul id='items'><li class='item'>a</li><li class='item'>b</li><li class='item'>c</li></ul>",
-      "<div class='error'>e1</div><div class='warning'>w1</div><div class='error'>e2</div>",
-      "<a href='#x'>Forgot your password?</a>",
-      "<div class='item'>outside the list</div>",
-      "<iframe id='frame' srcdoc=\"<button id='inner'>Inside</button>\"></iframe>");
+  private static final String HTML =
+      String.join(
+          "\n",
+          "<h1>Title</h1>",
+          "<form id='form'>",
+          "  <input id='username' name='user' placeholder='Your name'>",
+          "  <label for='pw'>Password</label><input id='pw' type='password'>",
+          "  <button type='submit' data-testid='submit'>Log in</button>",
+          "</form>",
+          "<ul id='items'><li class='item'>a</li><li class='item'>b</li><li"
+              + " class='item'>c</li></ul>",
+          "<div class='error'>e1</div><div class='warning'>w1</div><div class='error'>e2</div>",
+          "<a href='#x'>Forgot your password?</a>",
+          "<div class='item'>outside the list</div>",
+          "<iframe id='frame' srcdoc=\"<button id='inner'>Inside</button>\"></iframe>");
 
   @SuppressWarnings("unused")
   static class BasePage {
@@ -39,11 +41,11 @@ class PageFactoryTest extends BrowserTestBase {
 
   @SuppressWarnings("unused")
   static class TestPage extends BasePage {
-    static Locator staticField;                        // must be ignored
-    final Locator finalField = null;                   // must be ignored (constructor-owned)
-    String notALocator = "untouched";                  // must be ignored
-    List<Locator> unannotatedList;                     // must stay null
-    List<String> stringList;                           // must stay null
+    static Locator staticField; // must be ignored
+    final Locator finalField = null; // must be ignored (constructor-owned)
+    String notALocator = "untouched"; // must be ignored
+    List<Locator> unannotatedList; // must stay null
+    List<String> stringList; // must stay null
 
     @FindBy(id = "username")
     Locator username;
@@ -71,7 +73,8 @@ class PageFactoryTest extends BrowserTestBase {
 
     @FindBy(selector = "css=#items >> nth=0")
     Locator rawSelector;
-    Locator pw;                                        // no annotation -> id or name "pw"
+
+    Locator pw; // no annotation -> id or name "pw"
 
     @FindBy(className = "item")
     List<Locator> allItems;
@@ -150,7 +153,9 @@ class PageFactoryTest extends BrowserTestBase {
     TestPage p = init();
     assertThat(p.allItems).hasSize(4);
 
-    page.evaluate("document.getElementById('items').insertAdjacentHTML('beforeend', \"<li class='item'>d</li>\")");
+    page.evaluate(
+        "document.getElementById('items').insertAdjacentHTML('beforeend', \"<li"
+            + " class='item'>d</li>\")");
     assertThat(p.allItems).hasSize(5);
     assertThat(p.allItems.get(3).textContent()).isEqualTo("d");
   }
@@ -159,7 +164,9 @@ class PageFactoryTest extends BrowserTestBase {
   void cacheLookupFreezesListSnapshot() {
     TestPage p = init();
     assertThat(p.cachedItems).hasSize(4);
-    page.evaluate("document.getElementById('items').insertAdjacentHTML('beforeend', \"<li class='item'>d</li>\")");
+    page.evaluate(
+        "document.getElementById('items').insertAdjacentHTML('beforeend', \"<li"
+            + " class='item'>d</li>\")");
     assertThat(p.cachedItems).hasSize(4);
     assertThat(p.allItems).hasSize(5);
   }
@@ -174,7 +181,7 @@ class PageFactoryTest extends BrowserTestBase {
   @Test
   void listProxyToStringDoesNotQueryThePage() {
     TestPage p = init();
-    page.close();  // any query would now throw
+    page.close(); // any query would now throw
     assertThat(p.allItems.toString()).startsWith("Proxy list for: DefaultElementLocator");
   }
 
@@ -208,6 +215,7 @@ class PageFactoryTest extends BrowserTestBase {
 
     @FindBy(id = "username")
     Locator username;
+
     PageCtorPage(Page page) {
       this.page = page;
     }
@@ -223,6 +231,7 @@ class PageFactoryTest extends BrowserTestBase {
 
     @FindBy(className = "item")
     List<Locator> items;
+
     Component(Locator root) {
       this.root = root;
     }
@@ -233,6 +242,7 @@ class PageFactoryTest extends BrowserTestBase {
 
     @FindBy(tagName = "button")
     Locator button;
+
     ContextPage(SearchContext ctx) {
       this.ctx = ctx;
     }
@@ -319,8 +329,8 @@ class PageFactoryTest extends BrowserTestBase {
   void customElementLocatorFactoryCanSkipFields() {
     page.setContent(HTML);
     ElementLocatorFactory defaultFactory = new DefaultElementLocatorFactory(SearchContext.of(page));
-    ElementLocatorFactory onlyUsername = (Field f) ->
-        f.getName().equals("username") ? defaultFactory.createLocator(f) : null;
+    ElementLocatorFactory onlyUsername =
+        (Field f) -> f.getName().equals("username") ? defaultFactory.createLocator(f) : null;
 
     TestPage p = new TestPage();
     PageFactory.initElements(onlyUsername, p);
@@ -335,7 +345,8 @@ class PageFactoryTest extends BrowserTestBase {
     DefaultFieldDecorator decorator =
         new DefaultFieldDecorator(new DefaultElementLocatorFactory(SearchContext.of(page))) {
           @Override
-          protected Locator proxyForLocator(ClassLoader loader,
+          protected Locator proxyForLocator(
+              ClassLoader loader,
               io.github.byreshb.playwright.pagefactory.support.ElementLocator locator) {
             return locator.findLocator().first();
           }

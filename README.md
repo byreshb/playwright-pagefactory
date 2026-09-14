@@ -235,7 +235,12 @@ and [docs/design.md](docs/design.md) for how the pieces fit together and how to 
 mvn test                # unit tests + browser tests (first run downloads Chromium)
 mvn javadoc:javadoc     # API docs in target/site/apidocs
 mvn install             # build, test, install into ~/.m2
+mvn spotless:check      # verify formatting without changing anything (for CI)
 ```
+
+Formatting is automatic: every build runs [Spotless](https://github.com/diffplug/spotless) with
+google-java-format (Google style, annotations on their own line) over `src/` before compiling, so
+you never need to format by hand.
 
 The browser tests launch headless Chromium through Playwright. On the first run Playwright
 downloads the browsers it needs into `~/Library/Caches/ms-playwright` (macOS),

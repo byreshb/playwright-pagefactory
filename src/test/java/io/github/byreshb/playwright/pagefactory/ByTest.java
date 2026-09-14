@@ -1,10 +1,10 @@
 package io.github.byreshb.playwright.pagefactory;
 
-import com.microsoft.playwright.Locator;
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import com.microsoft.playwright.Locator;
+import org.junit.jupiter.api.Test;
 
 /** Pure unit tests for {@link By}: no browser, selectors are captured with a fake context. */
 class ByTest {
@@ -151,8 +151,7 @@ class ByTest {
 
   @Test
   void idOrNameMatchesEither() {
-    assertThat(selectorOf(By.idOrName("email")))
-        .isEqualTo("css=[id=\"email\"], [name=\"email\"]");
+    assertThat(selectorOf(By.idOrName("email"))).isEqualTo("css=[id=\"email\"], [name=\"email\"]");
   }
 
   // ---- Playwright strategies -----------------------------------------------------------------

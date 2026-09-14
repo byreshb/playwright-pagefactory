@@ -8,7 +8,6 @@ import io.github.byreshb.playwright.pagefactory.support.DefaultElementLocatorFac
 import io.github.byreshb.playwright.pagefactory.support.DefaultFieldDecorator;
 import io.github.byreshb.playwright.pagefactory.support.ElementLocatorFactory;
 import io.github.byreshb.playwright.pagefactory.support.FieldDecorator;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,9 +15,9 @@ import java.lang.reflect.Modifier;
 import java.util.Objects;
 
 /**
- * Factory that populates the {@link Locator} and {@code List<Locator>} fields of a page object,
- * the same way Selenium's {@code org.openqa.selenium.support.PageFactory} populates
- * {@code WebElement} fields.
+ * Factory that populates the {@link Locator} and {@code List<Locator>} fields of a page object, the
+ * same way Selenium's {@code org.openqa.selenium.support.PageFactory} populates {@code WebElement}
+ * fields.
  *
  * <pre><code>
  * public class LoginPage {
@@ -32,10 +31,11 @@ import java.util.Objects;
  * }
  * </code></pre>
  *
- * <p>Fields are resolved for the page object's class and all of its superclasses. Static and
- * final fields are ignored (a final field was assigned by the constructor, typically the
- * component's root locator, and must not be clobbered by the default id-or-name lookup). Which fields are decorated, and with what, is decided by a {@link FieldDecorator};
- * the default one is described in {@link DefaultFieldDecorator}.
+ * <p>Fields are resolved for the page object's class and all of its superclasses. Static and final
+ * fields are ignored (a final field was assigned by the constructor, typically the component's root
+ * locator, and must not be clobbered by the default id-or-name lookup). Which fields are decorated,
+ * and with what, is decided by a {@link FieldDecorator}; the default one is described in {@link
+ * DefaultFieldDecorator}.
  *
  * @see FindBy
  * @see FindBys
@@ -53,8 +53,8 @@ public final class PageFactory {
   /**
    * Instantiates {@code pageClassToProxy} and initialises its fields against {@code page}.
    *
-   * <p>The class is instantiated through a constructor that accepts a {@link Page} if there is
-   * one, falling back to a no-arg constructor.
+   * <p>The class is instantiated through a constructor that accepts a {@link Page} if there is one,
+   * falling back to a no-arg constructor.
    *
    * @param page the page to resolve fields against
    * @param pageClassToProxy the page-object class
@@ -77,8 +77,7 @@ public final class PageFactory {
   }
 
   /**
-   * Instantiates {@code pageClassToProxy} and initialises its fields against
-   * {@code searchContext}.
+   * Instantiates {@code pageClassToProxy} and initialises its fields against {@code searchContext}.
    *
    * <p>Constructor resolution, in order: a single-argument constructor accepting the object the
    * context wraps ({@link Page}, {@link Frame}, {@link Locator} or {@link FrameLocator}); a
@@ -120,8 +119,8 @@ public final class PageFactory {
   }
 
   /**
-   * As above, but with a custom {@link ElementLocatorFactory}. If the factory returns
-   * {@code null} for a field, that field is not decorated.
+   * As above, but with a custom {@link ElementLocatorFactory}. If the factory returns {@code null}
+   * for a field, that field is not decorated.
    */
   public static void initElements(ElementLocatorFactory factory, Object pageObject) {
     initElements(new DefaultFieldDecorator(factory), pageObject);
@@ -182,8 +181,11 @@ public final class PageFactory {
       return noArg.newInstance();
     } catch (NoSuchMethodException e) {
       throw new IllegalArgumentException(
-          pageClass.getName() + " needs a constructor taking " + unwrapped.getClass().getSimpleName()
-              + " (or Page/Locator/Frame/FrameLocator), SearchContext, or no arguments", e);
+          pageClass.getName()
+              + " needs a constructor taking "
+              + unwrapped.getClass().getSimpleName()
+              + " (or Page/Locator/Frame/FrameLocator), SearchContext, or no arguments",
+          e);
     } catch (InvocationTargetException e) {
       Throwable cause = e.getCause();
       if (cause instanceof RuntimeException) {

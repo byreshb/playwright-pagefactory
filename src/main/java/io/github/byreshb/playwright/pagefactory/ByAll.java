@@ -1,14 +1,13 @@
 package io.github.byreshb.playwright.pagefactory;
 
 import com.microsoft.playwright.Locator;
-
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
  * Matches elements found by <em>any</em> of the given {@link By}s, i.e. their union. This is the
- * strategy behind {@link FindAll} and mirrors Selenium's
- * {@code org.openqa.selenium.support.pagefactory.ByAll}.
+ * strategy behind {@link FindAll} and mirrors Selenium's {@code
+ * org.openqa.selenium.support.pagefactory.ByAll}.
  *
  * <p>Implemented with {@link Locator#or(Locator)}, so the resulting locator matches every element
  * matched by at least one of the constituent locators, in document order.

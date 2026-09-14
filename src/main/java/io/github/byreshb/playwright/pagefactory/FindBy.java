@@ -1,7 +1,6 @@
 package io.github.byreshb.playwright.pagefactory;
 
 import io.github.byreshb.playwright.pagefactory.support.AbstractFindByBuilder;
-
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,8 +10,8 @@ import java.lang.reflect.Field;
 
 /**
  * Declares how a {@link com.microsoft.playwright.Locator} (or {@code List<Locator>}) field on a
- * page object should be located. This is the Playwright equivalent of Selenium's
- * {@code org.openqa.selenium.support.FindBy}.
+ * page object should be located. This is the Playwright equivalent of Selenium's {@code
+ * org.openqa.selenium.support.FindBy}.
  *
  * <p>Two forms are supported, exactly like Selenium:
  *
@@ -31,8 +30,8 @@ import java.lang.reflect.Field;
  *
  * <p>Exactly one strategy may be given per annotation. In addition to the Selenium strategies,
  * Playwright's {@code getBy*} strategies are available: {@link #selector()}, {@link #testId()},
- * {@link #text()}, {@link #label()}, {@link #placeholder()}, {@link #altText()} and
- * {@link #title()}.
+ * {@link #text()}, {@link #label()}, {@link #placeholder()}, {@link #altText()} and {@link
+ * #title()}.
  *
  * @see FindBys
  * @see FindAll

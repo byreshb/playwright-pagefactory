@@ -1,8 +1,8 @@
 package io.github.byreshb.playwright.pagefactory;
 
 /**
- * The lookup strategies available to {@link FindBy#how()}, mirroring Selenium's {@code How}.
- * Each constant knows how to turn a raw value into a {@link By}.
+ * The lookup strategies available to {@link FindBy#how()}, mirroring Selenium's {@code How}. Each
+ * constant knows how to turn a raw value into a {@link By}.
  */
 public enum How {
   /** {@link By#className(String)} */

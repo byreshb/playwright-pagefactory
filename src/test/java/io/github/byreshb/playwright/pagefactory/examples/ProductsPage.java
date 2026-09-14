@@ -6,7 +6,6 @@ import io.github.byreshb.playwright.pagefactory.CacheLookup;
 import io.github.byreshb.playwright.pagefactory.FindAll;
 import io.github.byreshb.playwright.pagefactory.FindBy;
 import io.github.byreshb.playwright.pagefactory.FindBys;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -25,11 +24,15 @@ public class ProductsPage extends BasePage {
   @FindBy(testId = "product")
   private List<Locator> products;
 
-  /** @FindBys == chain: the buttons *inside* #product-list. */
+  /**
+   * @FindBys == chain: the buttons *inside* #product-list.
+   */
   @FindBys({@FindBy(id = "product-list"), @FindBy(className = "add")})
   private List<Locator> addButtons;
 
-  /** @FindAll == union: every error *or* warning alert. */
+  /**
+   * @FindAll == union: every error *or* warning alert.
+   */
   @FindAll({@FindBy(className = "error"), @FindBy(className = "warning")})
   private List<Locator> alerts;
 

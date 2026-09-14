@@ -4,16 +4,15 @@ import io.github.byreshb.playwright.pagefactory.By;
 import io.github.byreshb.playwright.pagefactory.FindBy;
 import io.github.byreshb.playwright.pagefactory.How;
 import io.github.byreshb.playwright.pagefactory.PageFactoryFinder;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base class for the builders referenced by {@link PageFactoryFinder}. Subclass this to add
- * support for your own locating annotation; the helper methods here are the same ones Selenium's
- * {@code AbstractFindByBuilder} offers.
+ * Base class for the builders referenced by {@link PageFactoryFinder}. Subclass this to add support
+ * for your own locating annotation; the helper methods here are the same ones Selenium's {@code
+ * AbstractFindByBuilder} offers.
  */
 public abstract class AbstractFindByBuilder {
 
@@ -21,8 +20,8 @@ public abstract class AbstractFindByBuilder {
   public abstract By buildIt(Annotation annotation, Field field);
 
   /**
-   * Validates a {@link FindBy}: {@code how} requires {@code using}, and at most one strategy may
-   * be specified.
+   * Validates a {@link FindBy}: {@code how} requires {@code using}, and at most one strategy may be
+   * specified.
    *
    * @throws IllegalArgumentException when the annotation is inconsistent
    */
@@ -53,7 +52,10 @@ public abstract class AbstractFindByBuilder {
     if (finders.size() > 1) {
       throw new IllegalArgumentException(
           "You must specify at most one location strategy. Number found: "
-              + finders.size() + " (" + String.join(", ", finders) + ")");
+              + finders.size()
+              + " ("
+              + String.join(", ", finders)
+              + ")");
     }
   }
 

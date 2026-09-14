@@ -3,14 +3,12 @@ package io.github.byreshb.playwright.pagefactory.support;
 import com.microsoft.playwright.Locator;
 import io.github.byreshb.playwright.pagefactory.By;
 import io.github.byreshb.playwright.pagefactory.SearchContext;
-
 import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * The default {@link ElementLocator}: resolves the field's {@link By} against a
- * {@link SearchContext}, optionally caching the result. Mirrors Selenium's
- * {@code DefaultElementLocator}.
+ * The default {@link ElementLocator}: resolves the field's {@link By} against a {@link
+ * SearchContext}, optionally caching the result. Mirrors Selenium's {@code DefaultElementLocator}.
  */
 public class DefaultElementLocator implements ElementLocator {
   private final SearchContext searchContext;

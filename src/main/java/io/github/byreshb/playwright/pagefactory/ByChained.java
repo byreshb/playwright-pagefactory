@@ -1,17 +1,16 @@
 package io.github.byreshb.playwright.pagefactory;
 
 import com.microsoft.playwright.Locator;
-
 import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Chains several {@link By}s: each is resolved <em>inside</em> the elements matched by the
- * previous one. This is the strategy behind {@link FindBys} and mirrors Selenium's
- * {@code org.openqa.selenium.support.pagefactory.ByChained}.
+ * Chains several {@link By}s: each is resolved <em>inside</em> the elements matched by the previous
+ * one. This is the strategy behind {@link FindBys} and mirrors Selenium's {@code
+ * org.openqa.selenium.support.pagefactory.ByChained}.
  *
- * <p>For example {@code new ByChained(By.id("form"), By.tagName("input"))} is equivalent to
- * {@code page.locator("css=[id=\"form\"]").locator("css=input")}.
+ * <p>For example {@code new ByChained(By.id("form"), By.tagName("input"))} is equivalent to {@code
+ * page.locator("css=[id=\"form\"]").locator("css=input")}.
  */
 public class ByChained extends By {
   private final By[] bys;

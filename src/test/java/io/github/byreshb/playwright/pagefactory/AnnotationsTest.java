@@ -1,19 +1,18 @@
 package io.github.byreshb.playwright.pagefactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import com.microsoft.playwright.Locator;
 import io.github.byreshb.playwright.pagefactory.support.AbstractFindByBuilder;
 import io.github.byreshb.playwright.pagefactory.support.Annotations;
-import org.junit.jupiter.api.Test;
-
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.junit.jupiter.api.Test;
 
 /** Tests annotation parsing ({@link Annotations}) without a browser. */
 class AnnotationsTest {
@@ -22,8 +21,7 @@ class AnnotationsTest {
   @Retention(RetentionPolicy.RUNTIME)
   @Target(ElementType.FIELD)
   @PageFactoryFinder(ByRole.Builder.class)
-  @interface
-  ByRole {
+  @interface ByRole {
     String value();
 
     class Builder extends AbstractFindByBuilder {
@@ -50,6 +48,7 @@ class AnnotationsTest {
 
     @FindBy(placeholder = "Search")
     Locator playwrightShortForm;
+
     Locator noAnnotation;
 
     @CacheLookup
@@ -138,11 +137,14 @@ class AnnotationsTest {
   @Test
   void conflictingAnnotationsAreRejected() throws Exception {
     assertThatThrownBy(() -> annotationsOf("findByAndFindBys").buildBy())
-        .isInstanceOf(IllegalArgumentException.class).hasMessageContaining("@FindBys");
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("@FindBys");
     assertThatThrownBy(() -> annotationsOf("findByAndFindAll").buildBy())
-        .isInstanceOf(IllegalArgumentException.class).hasMessageContaining("@FindAll");
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("@FindAll");
     assertThatThrownBy(() -> annotationsOf("findBysAndFindAll").buildBy())
-        .isInstanceOf(IllegalArgumentException.class).hasMessageContaining("@FindAll");
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("@FindAll");
   }
 
   @Test

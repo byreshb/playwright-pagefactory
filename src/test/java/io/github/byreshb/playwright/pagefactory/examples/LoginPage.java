@@ -26,7 +26,7 @@ public class LoginPage extends BasePage {
   @FindBy(partialLinkText = "Forgot")
   private Locator forgotPassword;
 
-  private Locator message;                       // no annotation: id or name == "message"
+  private Locator message; // no annotation: id or name == "message"
 
   public LoginPage(Page page) {
     super(page);

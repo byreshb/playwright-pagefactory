@@ -6,8 +6,8 @@ import io.github.byreshb.playwright.pagefactory.FindBy;
 import io.github.byreshb.playwright.pagefactory.PageFactory;
 
 /**
- * Common base for page objects. Fields declared here are initialised too, because
- * {@link PageFactory} walks the whole class hierarchy, exactly like Selenium.
+ * Common base for page objects. Fields declared here are initialised too, because {@link
+ * PageFactory} walks the whole class hierarchy, exactly like Selenium.
  */
 public abstract class BasePage {
   protected final Page page;
@@ -20,7 +20,7 @@ public abstract class BasePage {
 
   protected BasePage(Page page) {
     this.page = page;
-    PageFactory.initElements(page, this);          // the classic Selenium idiom
+    PageFactory.initElements(page, this); // the classic Selenium idiom
     this.navBar = new NavBar(page.locator("#main-nav"));
   }
 

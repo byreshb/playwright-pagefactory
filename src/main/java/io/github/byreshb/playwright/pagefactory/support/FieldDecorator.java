@@ -3,8 +3,8 @@ package io.github.byreshb.playwright.pagefactory.support;
 import java.lang.reflect.Field;
 
 /**
- * Decides what value, if any, a page-object field should receive. Mirrors Selenium's
- * {@code FieldDecorator}.
+ * Decides what value, if any, a page-object field should receive. Mirrors Selenium's {@code
+ * FieldDecorator}.
  */
 public interface FieldDecorator {
 

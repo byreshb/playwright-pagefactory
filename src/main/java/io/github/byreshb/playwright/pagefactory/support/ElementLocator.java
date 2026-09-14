@@ -1,12 +1,11 @@
 package io.github.byreshb.playwright.pagefactory.support;
 
 import com.microsoft.playwright.Locator;
-
 import java.util.List;
 
 /**
- * Knows how to locate the value of a single page-object field. Mirrors Selenium's
- * {@code ElementLocator}, with {@link Locator} in place of {@code WebElement}.
+ * Knows how to locate the value of a single page-object field. Mirrors Selenium's {@code
+ * ElementLocator}, with {@link Locator} in place of {@code WebElement}.
  */
 public interface ElementLocator {
 

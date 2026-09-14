@@ -1,7 +1,6 @@
 package io.github.byreshb.playwright.pagefactory.support;
 
 import io.github.byreshb.playwright.pagefactory.SearchContext;
-
 import java.lang.reflect.Field;
 import java.util.Objects;
 

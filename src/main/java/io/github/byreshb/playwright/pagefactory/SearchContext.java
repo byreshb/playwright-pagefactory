@@ -4,7 +4,6 @@ import com.microsoft.playwright.Frame;
 import com.microsoft.playwright.FrameLocator;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -14,9 +13,8 @@ import java.util.function.Function;
  *
  * <p>Playwright has four unrelated types that can locate elements ({@link Page}, {@link Frame},
  * {@link Locator} and {@link FrameLocator}) but no shared interface between them. This interface
- * papers over that so a {@link By} can be resolved against any of them, which is what makes
- * scoping a page object to a component (via {@code PageFactory.initElements(locator, this)})
- * possible.
+ * papers over that so a {@link By} can be resolved against any of them, which is what makes scoping
+ * a page object to a component (via {@code PageFactory.initElements(locator, this)}) possible.
  *
  * <p>Obtain an instance with one of the {@code of(...)} factory methods.
  */
@@ -52,31 +50,57 @@ public interface SearchContext {
   /** Wraps a {@link Page}. Selectors resolve against the whole main frame. */
   static SearchContext of(Page page) {
     Objects.requireNonNull(page, "page");
-    return new Adapter(page, page::locator, page::getByTestId, page::getByText, page::getByLabel,
-        page::getByPlaceholder, page::getByAltText, page::getByTitle);
+    return new Adapter(
+        page,
+        page::locator,
+        page::getByTestId,
+        page::getByText,
+        page::getByLabel,
+        page::getByPlaceholder,
+        page::getByAltText,
+        page::getByTitle);
   }
 
   /** Wraps a {@link Frame}. */
   static SearchContext of(Frame frame) {
     Objects.requireNonNull(frame, "frame");
-    return new Adapter(frame, frame::locator, frame::getByTestId, frame::getByText,
-        frame::getByLabel, frame::getByPlaceholder, frame::getByAltText, frame::getByTitle);
+    return new Adapter(
+        frame,
+        frame::locator,
+        frame::getByTestId,
+        frame::getByText,
+        frame::getByLabel,
+        frame::getByPlaceholder,
+        frame::getByAltText,
+        frame::getByTitle);
   }
 
   /** Wraps a {@link Locator}. Selectors resolve relative to the element(s) it matches. */
   static SearchContext of(Locator locator) {
     Objects.requireNonNull(locator, "locator");
-    return new Adapter(locator, locator::locator, locator::getByTestId, locator::getByText,
-        locator::getByLabel, locator::getByPlaceholder, locator::getByAltText,
+    return new Adapter(
+        locator,
+        locator::locator,
+        locator::getByTestId,
+        locator::getByText,
+        locator::getByLabel,
+        locator::getByPlaceholder,
+        locator::getByAltText,
         locator::getByTitle);
   }
 
   /** Wraps a {@link FrameLocator}. Selectors resolve inside the targeted iframe. */
   static SearchContext of(FrameLocator frameLocator) {
     Objects.requireNonNull(frameLocator, "frameLocator");
-    return new Adapter(frameLocator, frameLocator::locator, frameLocator::getByTestId,
-        frameLocator::getByText, frameLocator::getByLabel, frameLocator::getByPlaceholder,
-        frameLocator::getByAltText, frameLocator::getByTitle);
+    return new Adapter(
+        frameLocator,
+        frameLocator::locator,
+        frameLocator::getByTestId,
+        frameLocator::getByText,
+        frameLocator::getByLabel,
+        frameLocator::getByPlaceholder,
+        frameLocator::getByAltText,
+        frameLocator::getByTitle);
   }
 
   /**
@@ -104,7 +128,8 @@ public interface SearchContext {
       return of((FrameLocator) context);
     }
     throw new IllegalArgumentException(
-        "Cannot create a SearchContext from " + context.getClass().getName()
+        "Cannot create a SearchContext from "
+            + context.getClass().getName()
             + "; expected Page, Frame, Locator or FrameLocator");
   }
 
@@ -119,14 +144,15 @@ public interface SearchContext {
     private final Function<String, Locator> byAltText;
     private final Function<String, Locator> byTitle;
 
-    private Adapter(Object target,
-                    Function<String, Locator> locator,
-                    Function<String, Locator> byTestId,
-                    Function<String, Locator> byText,
-                    Function<String, Locator> byLabel,
-                    Function<String, Locator> byPlaceholder,
-                    Function<String, Locator> byAltText,
-                    Function<String, Locator> byTitle) {
+    private Adapter(
+        Object target,
+        Function<String, Locator> locator,
+        Function<String, Locator> byTestId,
+        Function<String, Locator> byText,
+        Function<String, Locator> byLabel,
+        Function<String, Locator> byPlaceholder,
+        Function<String, Locator> byAltText,
+        Function<String, Locator> byTitle) {
       this.target = target;
       this.locator = locator;
       this.byTestId = byTestId;

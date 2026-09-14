@@ -1,9 +1,9 @@
 package io.github.byreshb.playwright.pagefactory.examples;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.github.byreshb.playwright.pagefactory.BrowserTestBase;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /** Drives the example page objects against the HTML fixtures in src/test/resources/pages. */
 class ExamplesTest extends BrowserTestBase {

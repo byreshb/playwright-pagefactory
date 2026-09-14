@@ -1,7 +1,6 @@
 package io.github.byreshb.playwright.pagefactory;
 
 import io.github.byreshb.playwright.pagefactory.support.AbstractFindByBuilder;
-
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

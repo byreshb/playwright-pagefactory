@@ -6,7 +6,6 @@ import io.github.byreshb.playwright.pagefactory.FindBy;
 import io.github.byreshb.playwright.pagefactory.FindBys;
 import io.github.byreshb.playwright.pagefactory.PageFactoryFinder;
 import io.github.byreshb.playwright.pagefactory.support.internal.LocatingLocatorListHandler;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -17,19 +16,19 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The default {@link FieldDecorator}: decorates {@link Locator} fields and annotated
- * {@code List<Locator>} fields, leaving everything else alone. Mirrors Selenium's
- * {@code DefaultFieldDecorator}.
+ * The default {@link FieldDecorator}: decorates {@link Locator} fields and annotated {@code
+ * List<Locator>} fields, leaving everything else alone. Mirrors Selenium's {@code
+ * DefaultFieldDecorator}.
  *
- * <p><b>Locator fields</b> receive a real Playwright {@link Locator} rather than a dynamic proxy.
- * A Playwright locator is already lazy (it re-resolves on every action), so a proxy would add
+ * <p><b>Locator fields</b> receive a real Playwright {@link Locator} rather than a dynamic proxy. A
+ * Playwright locator is already lazy (it re-resolves on every action), so a proxy would add
  * nothing, and a proxy would break Playwright methods that cast to the internal implementation
  * ({@code Locator.or}, {@code Locator.and}, {@code setHas(...)} etc.).
  *
  * <p><b>List&lt;Locator&gt; fields</b> receive a proxy that re-queries the page on every method
- * call (so the list always reflects the current DOM) unless the field is annotated with
- * {@link io.github.byreshb.playwright.pagefactory.CacheLookup}. As in Selenium, list fields are
- * only decorated when they carry a locating annotation.
+ * call (so the list always reflects the current DOM) unless the field is annotated with {@link
+ * io.github.byreshb.playwright.pagefactory.CacheLookup}. As in Selenium, list fields are only
+ * decorated when they carry a locating annotation.
  */
 public class DefaultFieldDecorator implements FieldDecorator {
 

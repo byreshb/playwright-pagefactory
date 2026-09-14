@@ -3,7 +3,6 @@ package io.github.byreshb.playwright.pagefactory.examples;
 import com.microsoft.playwright.Locator;
 import io.github.byreshb.playwright.pagefactory.FindBy;
 import io.github.byreshb.playwright.pagefactory.PageFactory;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

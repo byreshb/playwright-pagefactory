@@ -2,7 +2,6 @@ package io.github.byreshb.playwright.pagefactory;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -11,9 +10,9 @@ import java.util.function.Function;
  *
  * <p>Where Selenium's {@code By} finds {@code WebElement}s in a {@code SearchContext}, this one
  * produces a lazy Playwright {@link Locator} from a {@link SearchContext}. Every Selenium strategy
- * ({@link #id}, {@link #name}, {@link #className}, {@link #css}, {@link #tagName},
- * {@link #linkText}, {@link #partialLinkText}, {@link #xpath}) is translated into an equivalent
- * Playwright selector, and Playwright's own {@code getBy*} strategies are exposed alongside them.
+ * ({@link #id}, {@link #name}, {@link #className}, {@link #css}, {@link #tagName}, {@link
+ * #linkText}, {@link #partialLinkText}, {@link #xpath}) is translated into an equivalent Playwright
+ * selector, and Playwright's own {@code getBy*} strategies are exposed alongside them.
  *
  * <p>Instances are immutable, and two {@code By}s are equal when they describe the same strategy
  * and value.
@@ -80,8 +79,8 @@ public abstract class By {
    */
   public static By linkText(String linkText) {
     requireNonEmpty(linkText, "linkText");
-    return new SelectorBy("By.linkText", linkText,
-        "xpath=//a[normalize-space(.)=" + xpathString(linkText) + "]");
+    return new SelectorBy(
+        "By.linkText", linkText, "xpath=//a[normalize-space(.)=" + xpathString(linkText) + "]");
   }
 
   /**
@@ -90,7 +89,9 @@ public abstract class By {
    */
   public static By partialLinkText(String partialLinkText) {
     requireNonEmpty(partialLinkText, "partialLinkText");
-    return new SelectorBy("By.partialLinkText", partialLinkText,
+    return new SelectorBy(
+        "By.partialLinkText",
+        partialLinkText,
         "xpath=//a[contains(normalize-space(.), " + xpathString(partialLinkText) + ")]");
   }
 
@@ -102,8 +103,8 @@ public abstract class By {
 
   /**
    * Matches elements whose {@code id} <em>or</em> {@code name} equals the given value. This is the
-   * default strategy used for un-annotated {@code Locator} fields, mirroring Selenium's
-   * {@code ByIdOrName}.
+   * default strategy used for un-annotated {@code Locator} fields, mirroring Selenium's {@code
+   * ByIdOrName}.
    */
   public static By idOrName(String idOrName) {
     return new ByIdOrName(idOrName);
@@ -114,8 +115,8 @@ public abstract class By {
   // ---------------------------------------------------------------------------------------------
 
   /**
-   * Uses a raw Playwright selector verbatim, e.g. {@code "text=Sign in"},
-   * {@code "css=nav >> a.active"} or {@code "//button[@type='submit']"}.
+   * Uses a raw Playwright selector verbatim, e.g. {@code "text=Sign in"}, {@code "css=nav >>
+   * a.active"} or {@code "//button[@type='submit']"}.
    */
   public static By selector(String selector) {
     requireNonEmpty(selector, "selector");
@@ -200,9 +201,9 @@ public abstract class By {
   // ---------------------------------------------------------------------------------------------
 
   /**
-   * A {@code By} backed by a Playwright selector string. Exposed so custom
-   * {@link io.github.byreshb.playwright.pagefactory.support.ElementLocator}s can inspect the
-   * selector that will be passed to {@code locator(...)}.
+   * A {@code By} backed by a Playwright selector string. Exposed so custom {@link
+   * io.github.byreshb.playwright.pagefactory.support.ElementLocator}s can inspect the selector that
+   * will be passed to {@code locator(...)}.
    */
   public static final class SelectorBy extends By {
     private final String strategy;

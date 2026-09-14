@@ -6,19 +6,20 @@ import io.github.byreshb.playwright.pagefactory.FindAll;
 import io.github.byreshb.playwright.pagefactory.FindBy;
 import io.github.byreshb.playwright.pagefactory.FindBys;
 import io.github.byreshb.playwright.pagefactory.PageFactoryFinder;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
  * Reads the {@link FindBy}, {@link FindBys}, {@link FindAll}, {@link CacheLookup} and any custom
- * {@link PageFactoryFinder}-annotated annotations from a field. Mirrors Selenium's
- * {@code Annotations}.
+ * {@link PageFactoryFinder}-annotated annotations from a field. Mirrors Selenium's {@code
+ * Annotations}.
  */
 public class Annotations extends AbstractAnnotations {
   private final Field field;
 
-  /** @param field a field on a page object */
+  /**
+   * @param field a field on a page object
+   */
   public Annotations(Field field) {
     this.field = field;
   }
@@ -33,8 +34,8 @@ public class Annotations extends AbstractAnnotations {
    * {@inheritDoc}
    *
    * <p>Looks for an annotation meta-annotated with {@link PageFactoryFinder} ({@link FindBy},
-   * {@link FindBys}, {@link FindAll} or a custom one). If none is present the field name is used
-   * as an id or name, exactly like Selenium.
+   * {@link FindBys}, {@link FindAll} or a custom one). If none is present the field name is used as
+   * an id or name, exactly like Selenium.
    *
    * @throws IllegalArgumentException when conflicting annotations are present on the field
    */
@@ -52,9 +53,14 @@ public class Annotations extends AbstractAnnotations {
         builder = finder.value().getDeclaredConstructor().newInstance();
       } catch (ReflectiveOperationException e) {
         throw new IllegalStateException(
-            "Cannot instantiate " + finder.value().getName() + " for @"
-                + annotation.annotationType().getSimpleName() + " on field '" + field.getName()
-                + "'; it needs an accessible no-arg constructor", e);
+            "Cannot instantiate "
+                + finder.value().getName()
+                + " for @"
+                + annotation.annotationType().getSimpleName()
+                + " on field '"
+                + field.getName()
+                + "'; it needs an accessible no-arg constructor",
+            e);
       }
       return builder.buildIt(annotation, field);
     }

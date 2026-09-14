@@ -4,13 +4,12 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /** Shares one headless Chromium per test class and gives each test a fresh {@link Page}. */
 public abstract class BrowserTestBase {
