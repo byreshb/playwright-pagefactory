@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Acme - Sign in</title></head>
+<body>
+<header id="header">
+  <nav id="main-nav">
+    <a href="login.html" class="active">Home</a>
+    <a href="products.html">Products</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<h1>Sign in to Acme</h1>
+
+<form id="login-form">
+  <label for="username">Username</label>
+  <input id="username" name="username" placeholder="Your username">
+
+  <label for="password">Password</label>
+  <input id="password" name="password" type="password" placeholder="Your password">
+
+  <label><input type="checkbox" name="remember"> Remember me</label>
+
+  <button type="submit" data-testid="sign-in">Sign in</button>
+</form>
+
+<p id="message" hidden></p>
+<a href="#forgot">Forgot your password?</a>
+
+<script>
+  document.getElementById('login-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var u = document.getElementById('username').value;
+    var p = document.getElementById('password').value;
+    var m = document.getElementById('message');
+    m.hidden = false;
+    if (u === 'admin' && p === 'secret') {
+      m.textContent = 'Welcome, ' + u + '!';
+      m.className = 'success';
+    } else {
+      m.textContent = 'Invalid credentials';
+      m.className = 'error';
+    }
+  });
+</script>
+</body>
+</html>

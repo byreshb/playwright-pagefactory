@@ -1,0 +1,8 @@
+Playwright PageFactory
+Copyright 2026 Byresh B
+
+This product is a port of the PageFactory support classes from Selenium
+(https://github.com/SeleniumHQ/selenium), licensed under the Apache License,
+Version 2.0. Class names, structure and documentation follow the Selenium
+originals in org.openqa.selenium.support and
+org.openqa.selenium.support.pagefactory.

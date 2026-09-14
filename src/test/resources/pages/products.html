@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Acme - Products</title></head>
+<body>
+<header id="header">
+  <nav id="main-nav">
+    <a href="login.html">Home</a>
+    <a href="products.html" class="active">Products</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<h1>Products</h1>
+<input id="search" placeholder="Search products">
+
+<ul id="product-list">
+  <li class="product" data-testid="product">
+    <span class="name">Keyboard</span> <span class="price">49</span>
+    <button class="add">Add to cart</button>
+  </li>
+  <li class="product" data-testid="product">
+    <span class="name">Mouse</span> <span class="price">25</span>
+    <button class="add">Add to cart</button>
+  </li>
+  <li class="product" data-testid="product">
+    <span class="name">Monitor</span> <span class="price">199</span>
+    <button class="add">Add to cart</button>
+  </li>
+</ul>
+
+<p>Items in cart: <span id="cart-count">0</span></p>
+
+<div class="alert error">Some items are out of stock</div>
+<div class="alert warning">Prices shown exclude tax</div>
+
+<script>
+  var count = 0;
+  document.querySelectorAll('.add').forEach(function (b) {
+    b.addEventListener('click', function () {
+      count++;
+      document.getElementById('cart-count').textContent = String(count);
+    });
+  });
+  document.getElementById('search').addEventListener('input', function (e) {
+    var term = e.target.value.toLowerCase();
+    document.querySelectorAll('.product').forEach(function (li) {
+      var name = li.querySelector('.name').textContent.toLowerCase();
+      li.style.display = name.indexOf(term) >= 0 ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>
