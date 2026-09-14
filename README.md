@@ -238,6 +238,22 @@ mvn install             # build, test, install into ~/.m2
 mvn spotless:check      # verify formatting without changing anything (for CI)
 ```
 
+### Debugging a failing browser test
+
+Every browser test runs with Playwright tracing on. When a test fails, its trace and a full-page
+screenshot are written to `target/playwright-artifacts/<TestClass>/<testMethod>/`; passing tests
+leave nothing behind. Open a trace in the Playwright trace viewer:
+
+```bash
+mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI \
+  -Dexec.args="show-trace target/playwright-artifacts/ExamplesTest/successfulLogin/trace.zip"
+```
+
+or drag the zip onto https://trace.playwright.dev. To watch the browser instead of running
+headless, add `-Dplaywright.headless=false`. The lifecycle lives in
+`src/test/java/.../PlaywrightExtension.java`, a small JUnit 5 extension you can copy into your
+own project.
+
 Formatting is automatic: every build runs [Spotless](https://github.com/diffplug/spotless) with
 google-java-format (Google style, annotations on their own line) over `src/` before compiling, so
 you never need to format by hand.

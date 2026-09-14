@@ -1,42 +1,24 @@
 package io.github.byreshb.playwright.pagefactory;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
-/** Shares one headless Chromium per test class and gives each test a fresh {@link Page}. */
+/**
+ * Base class for browser tests. {@link PlaywrightExtension} provides one headless Chromium per
+ * class, a fresh {@link Page} per test, and a trace plus screenshot for every failing test.
+ */
 public abstract class BrowserTestBase {
-  private static Playwright playwright;
-  private static Browser browser;
+
+  @RegisterExtension static final PlaywrightExtension playwright = new PlaywrightExtension();
+
   protected Page page;
 
-  @BeforeAll
-  static void launchBrowser() {
-    playwright = Playwright.create();
-    browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
-  }
-
-  @AfterAll
-  static void closeBrowser() {
-    if (browser != null) browser.close();
-    if (playwright != null) playwright.close();
-  }
-
   @BeforeEach
-  void newPage() {
-    page = browser.newPage();
-  }
-
-  @AfterEach
-  void closePage() {
-    if (page != null) page.close();
+  void takePage() {
+    page = playwright.page();
   }
 
   /** file:// URL of an HTML fixture under src/test/resources/pages. */
